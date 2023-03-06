@@ -1,0 +1,158 @@
+---
+# This is a sample Swagger spec, describing a simple API as a starting point.  
+swagger: "2.0"
+info:
+  title: Cards Game
+  description: Test API for Cards Game
+  version: 1
+  contact:
+    email: "ferran@fbalaguer.com"
+
+host: localhost:8080
+basePath: /api/v1
+schemes:
+- http
+  
+# Tags organize operations into groups for presentation in the Swagger UI.
+# Each tag has an optional description, which the Swagger UI will display in 
+# the tag group header.
+tags:
+- name: Decks
+  description: Deck Operations
+
+paths:
+
+  # Each Path Item Object describes a resource, containing a set of operations
+  # at a specified path.  The Path Item object can define parameters and 
+  # responses common all of its contained operations.
+  /deck:
+
+    # Operations are identified by an HTTP method.  
+    post:
+      tags:
+      - Deck
+      description: Creates a new Deck
+      operationId: createDeck
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: cards
+        in: query
+        description: List of card codes to be generated
+        required: false
+        type: array
+        items:
+          type: string
+      - name: shuffle
+        in: query
+        description: Indicate wheter the deck is sorted or randomly shuffled
+        required: false
+        type: boolean
+      responses:
+        200:
+          description: Successful response, with a representation of the new Deck
+          schema:
+            $ref: "#/definitions/DeckPartialObject"
+        400:
+          description: Wrong parameters
+  
+  /deck/{uuid}:
+    get:
+      tags:
+      - Deck
+      description: Retrieves one of the existing Decks by uuid
+      operationId: getDeck
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uuid
+        in: path
+        description: Unique identifier of the Deck
+        required: true
+        type: string
+      responses:
+        200:
+          description: Successful response, with a representation of the retrieved Deck
+          schema:
+            $ref: "#/definitions/DeckFullObject"
+        400:
+          description: Wrong parameters
+        404:
+          description: Deck not found
+
+  /deck/{uuid}/cards:
+    get:
+      tags:
+      - Deck
+      description: Retrieves as many cards as "amount" parameter. If not supplied returns one only card in case there are still cards left in the deck.
+      operationId: getCardsFromDeck
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uuid
+        in: path
+        description: Unique identifier of the Deck
+        required: true
+        type: string
+      - name: amount
+        in: query
+        description: number of cards to be drawn
+        required: false
+        type: int
+      responses:
+        200:
+          description: Successful response, with the list of requested cards
+          schema:
+            $ref: "#/definitions/CardObject"
+        400:
+          description: Wrong parameters
+        404:
+          description: Deck not found
+
+
+  
+# The definitions section contains a set of named Schema Objects.  Each schema
+# object describes a reusable data type, which can be reference by name.
+definitions:
+  CardObject:
+    type: object
+    description: Card Information
+    properties:
+      Value:
+        type: string
+      Suit:
+        type: string
+      Code:
+        type: string
+
+  DeckFullObject:
+    type: object
+    description: Full Deck
+    properties:
+      Id:
+        type: string
+      Shuffled:
+        type: string
+      Remaining:
+        type: string
+      Cards:
+        type: array
+        items:
+          $ref: "#/definitions/CardObject"
+
+  DeckPartialObject:
+    type: object
+    description: Full Deck
+    properties:
+      Id:
+        type: string
+      Shuffled:
+        type: string
+      Remaining:
+        type: string
