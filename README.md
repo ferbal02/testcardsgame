@@ -57,7 +57,7 @@ No testing errors should be displayed
 ## Swagger UI
 To use the swagger UI, run the service and open this URL with your browser "http://localhost:8080/swagger/v1"
 
-**The interface only works from localhost, as no CORSS issues have been considered**
+**The interface only works from localhost, as no CORS issues have been considered**
 
 The UI will show you a description of the 3 operations available with a friendly interface to interact with it.
 - /deck -> Create new deck  and returns the new deck as reponse. (POST request)
