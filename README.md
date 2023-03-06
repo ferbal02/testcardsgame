@@ -26,9 +26,9 @@ git clone https://github.com/ferbal02/testcardsgame.git
 ```
 cd ~/testcardsgame
 ```
-- Sync Go dependencies
+- Download Go missing dependencies
 ```
-go mod tidy
+go get
 ```
 
 ## Run the service
