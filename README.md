@@ -24,7 +24,7 @@ git clone https://github.com/ferbal02/testcardsgame.git
 
 - cd into the newly downloaded repo folder
 ```
-cd ~/testcardsgame
+cd testcardsgame
 ```
 - Download Go missing dependencies
 ```
