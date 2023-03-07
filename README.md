@@ -39,7 +39,7 @@ By default the service will be listening on "localhost:8080" (This port should n
 
 In the repo folder type the following command to start the service:
 ```
-git run main.go
+go run main.go
 ```
 Important urls:
 - localhost:8080 -> Will show a simple presentation page
@@ -62,7 +62,7 @@ To use the swagger UI, run the service and open this URL with your browser "http
 The UI will show you a description of the 3 operations available with a friendly interface to interact with it.
 - /deck -> Create new deck  and returns the new deck as reponse. (POST request)
 - /deck/{uuid} -> Returns the requested Deck if exists, otherwise returns error. (GET request)
-- /deck/{uuid}/cards -> Returns as many cards from a deck as requested. If deck not found or too many cards requested returns error.
+- /deck/{uuid}/cards -> Returns as many cards from a deck as requested. If deck not found or too many cards requested returns error. (GET request)
 
 ## Improvements
 Due to the expected excercise time, there are some improvements that I would add to the program in normal conditions:
